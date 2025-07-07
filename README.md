@@ -60,18 +60,6 @@ Map.addLayer(image, {bands: ['B4', 'B3', 'B2'], max: 0.3}, 'Landsat 8');
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-### Logo Placement
 
-> **Note**: To add the official Google Earth Engine logo, download it from the [Google Earth Engine brand resources](https://earthengine.google.com/brand) and place it here using:
-> 
-> ```markdown
-> ![Google Earth Engine Logo](path/to/gee-logo.png)
-> ```
-
-════════════════════════════════════════════════════════════════════
-
----
-
-*Created for Google Earth Engine projects*
 
 ════════════════════════════════════════════════════════════════════
