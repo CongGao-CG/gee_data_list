@@ -32,22 +32,6 @@ Google Earth Engine combines a multi-petabyte catalog of satellite imagery and g
 
 ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 
----
-
-### Quick Start
-
-```javascript
-// Initialize the Earth Engine library
-var ee = require('@google/earthengine');
-
-// Load a Landsat image
-var image = ee.Image('LANDSAT/LC08/C01/T1_TOA/LC08_044034_20140318');
-
-// Display the image
-Map.addLayer(image, {bands: ['B4', 'B3', 'B2'], max: 0.3}, 'Landsat 8');
-```
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 ### Resources
 
