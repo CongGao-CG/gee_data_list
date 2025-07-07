@@ -42,8 +42,8 @@ Google Earth Engine combines a multi-petabyte catalog of satellite imagery and g
 | [Documentation](https://developers.google.com/earth-engine) | API docs and guides |
 | [Data Catalog](https://developers.google.com/earth-engine/datasets) | Available datasets |
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
+════════════════════════════════════════════════════════════════════
 
 
 ════════════════════════════════════════════════════════════════════
