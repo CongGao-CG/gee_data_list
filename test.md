@@ -32,6 +32,22 @@ Google Earth Engine combines a multi-petabyte catalog of satellite imagery and g
 
 ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 
+---
+
+### Quick Start
+
+```javascript
+// Initialize the Earth Engine library
+var ee = require('@google/earthengine');
+
+// Load a Landsat image
+var image = ee.Image('LANDSAT/LC08/C01/T1_TOA/LC08_044034_20140318');
+
+// Display the image
+Map.addLayer(image, {bands: ['B4', 'B3', 'B2'], max: 0.3}, 'Landsat 8');
+```
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 ### Resources
 
@@ -42,8 +58,31 @@ Google Earth Engine combines a multi-petabyte catalog of satellite imagery and g
 | [Documentation](https://developers.google.com/earth-engine) | API docs and guides |
 | [Data Catalog](https://developers.google.com/earth-engine/datasets) | Available datasets |
 
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+### Logo Placement
+
+> **Note**: To add the official Google Earth Engine logo, download it from the [Google Earth Engine brand resources](https://earthengine.google.com/brand) and place it here using:
+> 
+> ```markdown
+> ![Google Earth Engine Logo](path/to/gee-logo.png)
+> ```
 
 ════════════════════════════════════════════════════════════════════
+
+---
+
+*Created for Google Earth Engine projects*
+
+════════════════════════════════════════════════════════════════════
+
+---
+
+## Sea Surface Temperature Datasets in Google Earth Engine
+
+Below is a comprehensive list of all sea surface temperature (SST) datasets available in the Google Earth Engine catalog, including their spatial and temporal characteristics.
+
+═══════════════════════════════════════════════════════════════════
 
 ### Quick Overview
 Google Earth Engine provides **7 dedicated SST datasets** from various sources:
@@ -177,5 +216,85 @@ Three versions available:
 
 ---
 
+### Note on ERA5 Datasets
+ERA5 (`ECMWF/ERA5/DAILY`, `ECMWF/ERA5/MONTHLY`) and ERA5-Land datasets focus on atmospheric and land surface parameters. They do **not** contain dedicated sea surface temperature bands. ERA5 provides air temperature, precipitation, and other meteorological variables but not SST specifically.
+
+---
+
+### Key Considerations for SST Data Selection:
+
+▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+
+**1. Resolution Requirements**
+- Highest spatial: NOAA Pathfinder (4 km), GCOM-C/SGLI and MODIS (4.6 km)
+- Medium spatial: HYCOM (8.9 km)
+- Coarse spatial: NOAA OISST, NOAA WHOI (27.8 km)
+
+**2. Temporal Frequency**
+- Sub-daily: NOAA CDR WHOI (3-hourly), NOAA Pathfinder (twice daily)
+- Daily: Most datasets
+- Near real-time: HYCOM (2-day lag in 2024), GCOM-C V3 (3-4 day lag)
+
+**3. Historical Coverage**
+- Longest record: NOAA OISST (1981-present), Pathfinder (1981-2014)
+- Multi-decadal: HYCOM (1992-2024), NOAA WHOI (1988-2021)
+- 2000s onward: MODIS Terra (2000-present), MODIS Aqua (2002-2022)
+- Recent: GCOM-C (2018-present)
+
+**4. Special Features**
+- 3D ocean data: HYCOM (40 depth levels)
+- Quality-controlled climate record: NOAA CDR products
+- Ocean biology integration: MODIS-Aqua and Terra L3SMI
+- Historical high-resolution: NOAA Pathfinder V5.3
+
+**5. Data Availability Status**
+- **Currently Active**: NOAA OISST, GCOM-C V3, MODIS-Terra
+- **Recently Ended**: HYCOM (ended Sept 2024), MODIS-Aqua (ended Feb 2022), NOAA WHOI (ended Aug 2021)
+- **Historical Only**: NOAA Pathfinder (ended 2014)
+
+▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+
+### Example Code Snippets
+
+```javascript
+// 1. Load NOAA OISST data (most commonly used)
+var sst = ee.ImageCollection('NOAA/CDR/OISST/V2_1')
+  .filterDate('2023-01-01', '2023-12-31')
+  .select('sst');
+
+// 2. Load high-resolution MODIS-Aqua SST
+var modisSST = ee.ImageCollection('NASA/OCEANDATA/MODIS-Aqua/L3SMI')
+  .filterDate('2023-06-01', '2023-06-30')
+  .select('sst');
+
+// 3. Load HYCOM for 3D ocean temperature (surface layer)
+var hycomSST = ee.ImageCollection('HYCOM/sea_temp_salinity')
+  .filterDate('2023-01-01', '2023-01-31')
+  .select('water_temp_0')  // Surface temperature
+  .map(function(img) {
+    return img.multiply(0.001).add(20);  // Scale to Celsius
+  });
+
+// Visualize mean SST
+var sstVis = {
+  min: -2,
+  max: 35,
+  palette: ['000000', '005aff', '43c8c8', 'fff700', 'ff0000']
+};
+
+Map.addLayer(sst.mean(), sstVis, 'NOAA OISST');
+```
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+*Last updated: January 2025*
+
+**Important Notes on Temporal Coverage:**
+- Temporal coverage dates were verified as of January 2025
+- "Present" indicates the dataset was still being updated at the time of documentation
+- Some datasets may have processing delays (e.g., GCOM-C has 3-4 day latency)
+- MODIS-Aqua SST appears to have ended in February 2022
+- HYCOM data availability in GEE ended in September 2024
+- Always check the actual data availability in Google Earth Engine as coverage may change
 
 ════════════════════════════════════════════════════════════════════
