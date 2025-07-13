@@ -117,6 +117,14 @@ Three versions available:
 - **Spatial Resolution**: 0.08° (approximately 8.9 km)
 - **Temporal Resolution**: Daily
 - **Temporal Coverage**: 1992-10-02 to 2024-09-05 (dataset ended)
+
+```python
+ee.ImageCollection('HYCOM/sea_temp_salinity').sort('system:time_start', True).first().get('system:index').getInfo()
+# '1992100200'
+ee.ImageCollection('HYCOM/sea_temp_salinity').sort('system:time_start', False).first().get('system:index').getInfo()
+# '2024090509'
+```
+
 - **Spatial Coverage**: 80.48°S to 80.48°N
 - **Key Features**: 
   - Temperature at 40 depth levels (0m to 4000m)
