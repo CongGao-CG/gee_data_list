@@ -138,13 +138,117 @@ Three versions available:
 ```python
 ee.ImageCollection('HYCOM/sea_temp_salinity').size().getInfo()
 # 27098
-ee.ImageCollection('HYCOM/sea_temp_salinity').sort('system:time_start').aggregate_array('system:index').getInfo()
-# '1992100200', '1992100300', '1992100400' ... '2018091800', '2018091900', '2018091912', '2018091915', '2018091918' ... '2024090503', '2024090506', '2024090509'
+ee.ImageCollection('HYCOM/sea_temp_salinity').filter(ee.Filter.stringEndsWith('system:index', '00').Not()).sort('system:time_start').aggregate_array('system:index').size().getInfo()
+# 15530
+ee.ImageCollection('HYCOM/sea_temp_salinity').filter(ee.Filter.stringEndsWith('system:index', '00')).sort('system:time_start').aggregate_array('system:index').size().getInfo()
+# 11568
+# Found 94 missing dates
 d0 = ee.Date.fromYMD(1993, 6, 26)
 ee.ImageCollection('HYCOM/sea_temp_salinity').filterDate(d0, d0.advance(1, 'day')).size().getInfo()
 # 0
 # 19930626 is missing
 ```
+<details>
+  <summary>Click to expand</summary>
+
+  ### 94 missing dates
+
+19930626
+19941209
+19960208
+19960909
+19960910
+19960911
+19960912
+19960913
+19960914
+19960915
+19960916
+19960917
+19960918
+19960921
+19960922
+19960923
+19960924
+19960925
+19960926
+19960927
+19960928
+19960929
+19960930
+19961001
+19961002
+19961003
+19961004
+19961006
+19961007
+19961008
+19961009
+19961010
+19961011
+19961012
+19961013
+19961231
+20000519
+20000520
+20000521
+20010922
+20130117
+20130118
+20130119
+20130120
+20130215
+20130318
+20130321
+20130322
+20130323
+20130324
+20130325
+20130326
+20130327
+20130328
+20130329
+20130330
+20130331
+20130401
+20130417
+20130504
+20130505
+20130511
+20130624
+20130625
+20130626
+20130627
+20130727
+20130802
+20131111
+20140413
+20150102
+20150315
+20150325
+20150919
+20160715
+20160914
+20160923
+20161014
+20161015
+20161209
+20170125
+20170318
+20170320
+20170804
+20170811
+20170813
+20170814
+20170927
+20171125
+20180303
+20180309
+20180311
+20180408
+20180502
+
+</details>
 
 - **Temporal Coverage**: 1992-10-02 to 2024-09-05 (dataset ended)
 
