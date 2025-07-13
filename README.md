@@ -62,14 +62,14 @@ Google Earth Engine provides **7 dedicated SST datasets** from various sources:
 - **Spatial Resolution**: 0.25° (approximately 27.8 km)
 - **Temporal Resolution**: Daily
 
-```Python
+```python
 ee.ImageCollection('NOAA/CDR/OISST/V2_1').size().getInfo()
 # 16017
 ```
 
 - **Temporal Coverage**: 1981-09-01 to present
 
-```Python
+```python
 ee.ImageCollection('NOAA/CDR/OISST/V2_1').sort('system:time_start', True).first().get('system:index').getInfo()
 # '19810901'
 ee.ImageCollection('NOAA/CDR/OISST/V2_1').sort('system:time_start', False).first().get('system:index').getInfo()
