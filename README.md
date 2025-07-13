@@ -126,6 +126,12 @@ ee.ImageCollection('HYCOM/sea_temp_salinity').sort('system:time_start', False).f
 ```
 
 - **Spatial Coverage**: 80.48°S to 80.48°N
+
+```python
+ee.ImageCollection('HYCOM/sea_temp_salinity').sort('system:time_start', False).first().projection().getInfo()
+# {'type': 'Projection', 'crs': 'EPSG:4326', 'transform': [0.08, 0, -180.04, 0, -0.04, 90.02]}
+```
+
 - **Key Features**: 
   - Temperature at 40 depth levels (0m to 4000m)
   - `water_temp_0` to `water_temp_39` for different depths
