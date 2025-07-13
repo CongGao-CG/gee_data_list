@@ -133,16 +133,10 @@ Three versions available:
 - **Temporal Resolution**: Daily (mostly)
 
 ```python
-ee.Image(ee.ImageCollection('HYCOM/sea_temp_salinity').sort('system:time_start', True).toList(2).get(0)).get('system:index').getInfo()
-# '1992100200'
-ee.Image(ee.ImageCollection('HYCOM/sea_temp_salinity').sort('system:time_start', True).toList(2).get(1)).get('system:index').getInfo()
-# '1992100300'
-ee.Image(ee.ImageCollection('HYCOM/sea_temp_salinity').sort('system:time_start', False).toList(2).get(0)).get('system:index').getInfo()
-# '2024090509'
-ee.Image(ee.ImageCollection('HYCOM/sea_temp_salinity').sort('system:time_start', False).toList(2).get(1)).get('system:index').getInfo()
-# '2024090506'
 ee.ImageCollection('HYCOM/sea_temp_salinity').size().getInfo()
 # 27098
+ee.ImageCollection('HYCOM/sea_temp_salinity').sort('system:time_start').aggregate_array('system:index').getInfo()
+# '19810901', '19810902', '19810903', ... '2018091800', '2018091900', '2018091912', '2018091915', '2018091918' ... '2024090503', '2024090506', '2024090509'
 ```
 
 - **Temporal Coverage**: 1992-10-02 to 2024-09-05 (dataset ended)
