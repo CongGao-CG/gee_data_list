@@ -115,9 +115,17 @@ Three versions available:
 - **Collection ID**: `HYCOM/sea_temp_salinity`
 - **Description**: Data-assimilative hybrid ocean model with 3D temperature data
 - **Spatial Resolution**: 0.08° (approximately 8.9 km)
-- **Temporal Resolution**: Daily
+- **Temporal Resolution**: Daily (mostly)
 
 ```python
+ee.Image(ee.ImageCollection('HYCOM/sea_temp_salinity').sort('system:time_start', True).toList(2).get(0)).get('system:index').getInfo()
+# '1992100200'
+ee.Image(ee.ImageCollection('HYCOM/sea_temp_salinity').sort('system:time_start', True).toList(2).get(1)).get('system:index').getInfo()
+# '1992100300'
+ee.Image(ee.ImageCollection('HYCOM/sea_temp_salinity').sort('system:time_start', False).toList(2).get(0)).get('system:index').getInfo()
+# '2024090509'
+ee.Image(ee.ImageCollection('HYCOM/sea_temp_salinity').sort('system:time_start', False).toList(2).get(1)).get('system:index').getInfo()
+# '2024090506'
 ee.ImageCollection('HYCOM/sea_temp_salinity').size().getInfo()
 # 27098
 ```
