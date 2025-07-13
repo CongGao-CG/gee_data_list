@@ -65,6 +65,9 @@ Google Earth Engine provides **7 dedicated SST datasets** from various sources:
 ```python
 ee.ImageCollection('NOAA/CDR/OISST/V2_1').size().getInfo()
 # 16017
+d0 = ee.Date.fromYMD(2025, 1, 14)
+ee.ImageCollection('NOAA/CDR/OISST/V2_1').filterDate(d0, d0.advance(1, 'day')).size().getInfo()
+# 0
 # 20250114 is missing
 ```
 
