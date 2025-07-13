@@ -136,7 +136,7 @@ Three versions available:
 ee.ImageCollection('HYCOM/sea_temp_salinity').size().getInfo()
 # 27098
 ee.ImageCollection('HYCOM/sea_temp_salinity').sort('system:time_start').aggregate_array('system:index').getInfo()
-# '19810901', '19810902', '19810903', ... '2018091800', '2018091900', '2018091912', '2018091915', '2018091918' ... '2024090503', '2024090506', '2024090509'
+# '1992100200', '1992100300', '1992100400' ... '2018091800', '2018091900', '2018091912', '2018091915', '2018091918' ... '2024090503', '2024090506', '2024090509'
 ```
 
 - **Temporal Coverage**: 1992-10-02 to 2024-09-05 (dataset ended)
