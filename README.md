@@ -140,6 +140,10 @@ ee.ImageCollection('HYCOM/sea_temp_salinity').size().getInfo()
 # 27098
 ee.ImageCollection('HYCOM/sea_temp_salinity').sort('system:time_start').aggregate_array('system:index').getInfo()
 # '1992100200', '1992100300', '1992100400' ... '2018091800', '2018091900', '2018091912', '2018091915', '2018091918' ... '2024090503', '2024090506', '2024090509'
+d0 = ee.Date.fromYMD(1993, 6, 26)
+ee.ImageCollection('HYCOM/sea_temp_salinity').filterDate(d0, d0.advance(1, 'day')).size().getInfo()
+# 0
+# 19930626 is missing
 ```
 
 - **Temporal Coverage**: 1992-10-02 to 2024-09-05 (dataset ended)
