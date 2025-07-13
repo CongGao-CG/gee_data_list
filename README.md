@@ -65,6 +65,7 @@ Google Earth Engine provides **7 dedicated SST datasets** from various sources:
 ```python
 ee.ImageCollection('NOAA/CDR/OISST/V2_1').size().getInfo()
 # 16017
+# 20250114 is missing
 ```
 
 - **Temporal Coverage**: 1981-09-01 to present
