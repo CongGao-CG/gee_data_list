@@ -81,6 +81,12 @@ ee.ImageCollection('NOAA/CDR/OISST/V2_1').sort('system:time_start', False).first
 ```
 
 - **Spatial Coverage**: Global
+
+```python
+ee.ImageCollection('NOAA/CDR/OISST/V2_1').first().geometry().bounds().getInfo()
+# {'type': 'Polygon', 'coordinates': [[[-180, -90], [180, -90], [180, 90], [-180, 90], [-180, -90]]]}
+```
+
 - **Key Bands**: 
   - `sst`: Sea surface temperature
   - `anom`: Temperature anomaly
@@ -260,11 +266,11 @@ ee.ImageCollection('HYCOM/sea_temp_salinity').sort('system:time_start', False).f
 # '2024090509'
 ```
 
-- **Spatial Coverage**: 80.48°S to 80.48°N
+- **Spatial Coverage**: Global
 
 ```python
-ee.ImageCollection('HYCOM/sea_temp_salinity').sort('system:time_start', False).first().projection().getInfo()
-# {'type': 'Projection', 'crs': 'EPSG:4326', 'transform': [0.08, 0, -180.04, 0, -0.04, 90.02]}
+ee.ImageCollection('HYCOM/sea_temp_salinity').first().geometry().bounds().getInfo()
+# {'type': 'Polygon', 'coordinates': [[[-180, -90], [180, -90], [180, 90], [-180, 90], [-180, -90]]]}
 ```
 
 - **Key Features**: 
