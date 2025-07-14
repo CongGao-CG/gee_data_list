@@ -62,6 +62,8 @@ Google Earth Engine provides **7 dedicated SST datasets** from various sources:
 - **Spatial Resolution**: 0.25°
 
 ```python
+ee.ImageCollection('NOAA/CDR/OISST/V2_1').first().select('sst').projection().nominalScale().getInfo()
+# 27829.87269831839
 ee.ImageCollection('NOAA/CDR/OISST/V2_1').sort('system:time_start', False).first().projection().getInfo()
 # {'type': 'Projection', 'crs': 'EPSG:4326', 'transform': [0.25, 0, -180, 0, -0.25, 90]}
 ee.ImageCollection('NOAA/CDR/OISST/V2_1').first().select('sst').getInfo()['bands'][0]['dimensions']
@@ -153,6 +155,8 @@ Three versions available:
 - **Spatial Resolution**: 0.08°
 
 ```python
+ee.ImageCollection('HYCOM/sea_temp_salinity').first().select('water_temp_0').projection().nominalScale().getInfo()
+# 8905.559807134887
 ee.ImageCollection('HYCOM/sea_temp_salinity').sort('system:time_start', False).first().projection().getInfo()
 # {'type': 'Projection', 'crs': 'EPSG:4326', 'transform': [0.08, 0, -180.04, 0, -0.04, 90.02]}
 ee.ImageCollection('HYCOM/sea_temp_salinity').first().select('water_temp_0').getInfo()['bands'][0]['dimensions']
