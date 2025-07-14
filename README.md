@@ -150,7 +150,7 @@ Three versions available:
 ### 4. **HYCOM Sea Temperature and Salinity**
 - **Collection ID**: `HYCOM/sea_temp_salinity`
 - **Description**: Data-assimilative hybrid ocean model with 3D temperature data
-- **Spatial Resolution**: 0.08° 0.04°
+- **Spatial Resolution**: 0.08°
 
 ```python
 ee.ImageCollection('HYCOM/sea_temp_salinity').sort('system:time_start', False).first().projection().getInfo()
