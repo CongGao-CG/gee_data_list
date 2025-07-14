@@ -59,7 +59,13 @@ Google Earth Engine provides **7 dedicated SST datasets** from various sources:
 ### 1. **NOAA CDR OISST V2.1** (Optimum Interpolation SST)
 - **Collection ID**: `NOAA/CDR/OISST/V2_1`
 - **Description**: Daily global SST from satellite, ships, and buoys with gap-filling interpolation
-- **Spatial Resolution**: 0.25° (approximately 27.8 km)
+- **Spatial Resolution**: 0.25°
+
+```python
+ee.ImageCollection('NOAA/CDR/OISST/V2_1').sort('system:time_start', False).first().projection().getInfo()
+# {'type': 'Projection', 'crs': 'EPSG:4326', 'transform': [0.25, 0, -180, 0, -0.25, 90]}
+```
+
 - **Temporal Resolution**: Daily
 
 ```python
@@ -138,7 +144,13 @@ Three versions available:
 ### 4. **HYCOM Sea Temperature and Salinity**
 - **Collection ID**: `HYCOM/sea_temp_salinity`
 - **Description**: Data-assimilative hybrid ocean model with 3D temperature data
-- **Spatial Resolution**: 0.08° (approximately 8.9 km)
+- **Spatial Resolution**: 0.08° 0.04°
+
+```python
+ee.ImageCollection('HYCOM/sea_temp_salinity').sort('system:time_start', False).first().projection().getInfo()
+# {'type': 'Projection', 'crs': 'EPSG:4326', 'transform': [0.08, 0, -180.04, 0, -0.04, 90.02]}
+```
+
 - **Temporal Resolution**: Daily (mostly)
 
 ```python
