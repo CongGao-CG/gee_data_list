@@ -182,7 +182,7 @@ ee.ImageCollection('HYCOM/sea_temp_salinity').filterDate(d0, d0.advance(1, 'day'
 <details>
   <summary>Click to expand</summary>
 
-  ### 94 missing dates
+  94 missing dates
 
   1. 19930626  
   2. 19941209  
