@@ -57,6 +57,7 @@ Google Earth Engine provides **7 dedicated SST datasets** from various sources:
 ═══════════════════════════════════════════════════════════════════
 
 ### 1. **NOAA CDR OISST V2.1** (Optimum Interpolation SST)
+- **Source**: https://www.ncei.noaa.gov/products/optimum-interpolation-sst
 - **Collection ID**: `NOAA/CDR/OISST/V2_1`
 - **Description**: Daily global SST from satellite, ships, and buoys with gap-filling interpolation
 - **Spatial Resolution**: 0.25°
