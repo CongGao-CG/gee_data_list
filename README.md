@@ -50,10 +50,15 @@ Google Earth Engine provides **7 dedicated SST datasets** from various sources:
 - **NOAA**: OISST (1981-present), CDR WHOI (1988-2021), Pathfinder (1981-2014)
 - **JAXA**: GCOM-C/SGLI (3 versions, 2018-present)
 - **HYCOM**: Ocean model with 3D temperature (1992-2024)
-- **NASA MODIS**: Aqua (2002-2022) and Terra (2000-present) ocean products
+- **NASA MODIS**: Aqua (2002-2022) and Terra (2000-2022) ocean products
 
 *Note: ERA5 reanalysis datasets do not contain sea surface temperature data. VIIRS SST products are not currently available in the GEE catalog.*
 
+Google Earth Engine provides **7 dedicated Chlorophyll-a datasets** from various sources:
+- **Copernicus**: based on multiple satellite sensors (1997-2024)
+- **NASA MODIS**: Aqua (2002-2022) and Terra (2000-2022) ocean products
+- **NASA SeaWiFS**: 1997-2010 
+- **JAXA**: GCOM-C/SGLI (3 versions, 2018-present)
 ═══════════════════════════════════════════════════════════════════
 
 ### 1. **NOAA CDR OISST V2.1** (Optimum Interpolation SST)
@@ -76,6 +81,7 @@ ee.ImageCollection('NOAA/CDR/OISST/V2_1').first().select('sst').getInfo()['bands
 ```python
 ee.ImageCollection('NOAA/CDR/OISST/V2_1').size().getInfo()
 # 16017
+# Missing days: 1
 d0 = ee.Date.fromYMD(2025, 1, 14)
 ee.ImageCollection('NOAA/CDR/OISST/V2_1').filterDate(d0, d0.advance(1, 'day')).size().getInfo()
 # 0
@@ -151,6 +157,7 @@ Three versions available:
 ---
 
 ### 4. **HYCOM Sea Temperature and Salinity**
+- **Source**: https://www.hycom.org
 - **Collection ID**: `HYCOM/sea_temp_salinity`
 - **Description**: Data-assimilative hybrid ocean model with 3D temperature data
 - **Spatial Resolution**: 0.08°
@@ -173,17 +180,11 @@ ee.ImageCollection('HYCOM/sea_temp_salinity').filter(ee.Filter.stringEndsWith('s
 # 15530
 ee.ImageCollection('HYCOM/sea_temp_salinity').filter(ee.Filter.stringEndsWith('system:index', '00')).sort('system:time_start').aggregate_array('system:index').size().getInfo()
 # 11568
-# Found 94 missing dates
-d0 = ee.Date.fromYMD(1993, 6, 26)
-ee.ImageCollection('HYCOM/sea_temp_salinity').filterDate(d0, d0.advance(1, 'day')).size().getInfo()
-# 0
-# 19930626 is missing
+# Missing days: 94
 ```
 
 <details>
   <summary>Click to expand</summary>
-
-  94 missing dates
 
   1. 19930626  
   2. 19941209  
@@ -358,4 +359,70 @@ ee.ImageCollection('HYCOM/sea_temp_salinity').first().geometry().bounds().getInf
 ---
 
 
-════════════════════════════════════════════════════════════════════
+═══════════════════════════════════════════════════════════════════
+
+### 1. **Copernicus Satellite Ocean Color Daily Data**
+- **Source**: https://cds.climate.copernicus.eu/datasets/satellite-ocean-colour?tab=overview
+- **Collection ID**: `COPERNICUS/MARINE/SATELLITE_OCEAN_COLOR/V6`
+- **Description**: best estimates of global Chl-a across a range of water types from SeaWiFS, MERIS, MODIS Aqua, VIIRS, and (from version 5.0 onward) OLCI.
+- **Spatial Resolution**: 4 km
+```python
+ee.ImageCollection('COPERNICUS/MARINE/SATELLITE_OCEAN_COLOR/V6').first().select('chlor_a').projection().nominalScale().getInfo()
+# 4638.312116386398
+ee.ImageCollection('COPERNICUS/MARINE/SATELLITE_OCEAN_COLOR/V6').sort('system:time_start', False).first().projection().getInfo()
+# {'type': 'Projection', 'crs': 'EPSG:4326', 'transform': [0.04166666666666666, 0, -180, 0, -0.041666666666666664, 90]}
+ee.ImageCollection('COPERNICUS/MARINE/SATELLITE_OCEAN_COLOR/V6').first().select('chlor_a').getInfo()['bands'][0]['dimensions']
+# [8640, 4320]
+```
+- **Temporal Resolution**: Daily
+```python
+ee.ImageCollection('COPERNICUS/MARINE/SATELLITE_OCEAN_COLOR/V6').size().getInfo()
+# 9954
+# Missing days: 27
+```
+
+<details>
+  <summary>Click to expand</summary>
+
+     1. 1997-09-05
+     2. 1997-09-07
+     3. 1997-09-08
+     4. 1997-09-11
+     5. 1997-09-12
+     6. 1997-09-13
+     7. 1997-09-14
+     8. 1997-09-17
+     9. 1997-10-13
+    10. 1997-10-14
+    11. 1997-10-15
+    12. 1997-10-16
+    13. 1997-10-17
+    14. 1997-10-18
+    15. 1997-12-15
+    16. 1998-07-10
+    17. 1998-11-17
+    18. 1998-11-18
+    19. 1998-11-19
+    20. 1998-11-20
+    21. 1998-12-17
+    22. 1999-01-25
+    23. 1999-11-17
+    24. 1999-11-18
+    25. 2000-11-17
+    26. 2001-11-18
+    27. 2023-05-28
+
+</details>
+
+- **Temporal Coverage**: 1997-09-04 to 2024-12-31
+```python
+ee.ImageCollection('COPERNICUS/MARINE/SATELLITE_OCEAN_COLOR/V6').sort('system:time_start', True).first().get('system:index').getInfo()
+# '1997_09_04'
+ee.ImageCollection('COPERNICUS/MARINE/SATELLITE_OCEAN_COLOR/V6').sort('system:time_start', False).first().get('system:index').getInfo()
+# '2024_12_31'
+```
+- **Spatial Coverage**: Global oceans
+```python
+ee.ImageCollection('COPERNICUS/MARINE/SATELLITE_OCEAN_COLOR/V6').first().geometry().bounds().getInfo()
+# {'type': 'Polygon', 'coordinates': [[[-180, -90], [180, -90], [180, 90], [-180, 90], [-180, -90]]]}
+```
